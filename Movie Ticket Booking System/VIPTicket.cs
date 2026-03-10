@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// remove unused using statement
+using System;
+
 
 namespace Assignment_5.Movie_Ticket_Booking_System
 {
@@ -20,10 +18,9 @@ namespace Assignment_5.Movie_Ticket_Booking_System
             LoungeAccess = loungeAccess;
         }
 
-        public VIPTicket(string movieName, bool loungeAccess, decimal fee) : base(movieName)
+        public VIPTicket(string movieName, bool loungeAccess) : base(movieName)
         {
             LoungeAccess = loungeAccess;
-            ServiceFee = fee;
         }
 
         public override string ToString()
@@ -32,17 +29,18 @@ namespace Assignment_5.Movie_Ticket_Booking_System
             return base.ToString() + $" | Lounge: {lounge} | Service Fee: {ServiceFee} EGP";
         }
 
-
-        //2. In each child class, provide its own version of PrintTicket():
-        //b.VIPTicket — prints the base ticket info, LoungeAccess, and ServiceFee.
-
-        public override void PrintTicket()
+        #region Assignment 05
+        
+        public override void Print()
         {
-            base.PrintTicket();
-            Console.WriteLine($"Lounge: {(LoungeAccess ? "Yes" : "No")} | Service Fee: {ServiceFee} EGP");
+            Console.WriteLine($"[Ticket #{TicketId}] {MovieName} | VIP | Lounge: {(LoungeAccess ? "Yes" : "No")} | Fee: {ServiceFee} | Price: {Price} | After Tax: {PriceAfterTax} | Booked: {(IsBooked ? "Yes" : "No")}");
+        }
+        
+        public override object Clone()
+        {
+            return new VIPTicket(MovieName, Price - 50m , LoungeAccess);        
         }
 
-        #region Assignment 05
         #endregion
 
     }

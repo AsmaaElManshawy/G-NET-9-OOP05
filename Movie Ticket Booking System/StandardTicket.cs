@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// remove unused using statement
+using System;
+
 
 namespace Assignment_5.Movie_Ticket_Booking_System
 {
@@ -33,13 +31,18 @@ namespace Assignment_5.Movie_Ticket_Booking_System
         //2. In each child class, provide its own version of PrintTicket():
         //a.StandardTicket — prints the base ticket info and the SeatNumber.
 
-        public override void PrintTicket()
+        #region Assignment 05
+
+        public override void Print()
         {
-            base.PrintTicket();
-            Console.WriteLine($"Seat: {SeatNumber}");
+            Console.WriteLine($"[Ticket #{TicketId}] {MovieName} | Standard | Seat: {SeatNumber} | Price: {Price} | After Tax: {PriceAfterTax} | Booked: {(IsBooked ? "Yes" : "No")}");
         }
 
-        #region Assignment 05
+        public override object Clone()
+        {
+            return new StandardTicket(MovieName, Price, SeatNumber);
+        }
+
         #endregion
 
     }

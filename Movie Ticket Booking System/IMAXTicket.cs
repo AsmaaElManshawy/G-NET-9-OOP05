@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// remove unused using statement
+using System;
+using System.Diagnostics;
+
 
 namespace Assignment_5.Movie_Ticket_Booking_System
 {
@@ -33,13 +32,22 @@ namespace Assignment_5.Movie_Ticket_Booking_System
         //2. In each child class, provide its own version of PrintTicket():
         //c.IMAXTicket — prints the base ticket info and whether it is 3D.
 
-        public override void PrintTicket()
-        {
-            base.PrintTicket();
-            Console.WriteLine($"IMAX 3D: {(Is3D ? "Yes" : "No")}");
-        }
 
         #region Assignment 05
+
+        public override void Print()
+        {
+            Console.WriteLine($"[Ticket #{TicketId}] {MovieName} | IMAX | 3D: {(Is3D ? "Yes" : "No")} | Price: {Price} | After Tax: {PriceAfterTax} | Booked: {(IsBooked ? "Yes" : "No")}");
+        }
+        
+        public override object Clone()
+        {
+            if (Is3D)
+                return new IMAXTicket(MovieName, Price - 30m, Is3D);
+            else
+                return new IMAXTicket(MovieName , Price, Is3D);
+        }
+
         #endregion
 
     }
