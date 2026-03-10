@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// remove unused using statement
+using System;
+
 
 namespace Assignment_5.Movie_Ticket_Booking_System
 {
     internal class Cinema
     {
         //3. Create a Cinema class
-        // Private array to hold tickets
-        //private Ticket[] tickets = new Ticket[20];
 
         public string CinemaName { get; set; }
 
@@ -62,22 +58,6 @@ namespace Assignment_5.Movie_Ticket_Booking_System
             return false;
         }
 
-        //b.PrintAllTickets() — prints all tickets.
-        //Assignment 04 - 3. In the Cinema class, update PrintAllTickets() so it loops through the Ticket[] array
-        //and calls PrintTicket() on each one.
-        public void PrintAllTickets()
-        {
-            Console.WriteLine("\n========== All Tickets ==========\n");
-
-            foreach (var t in tickets)
-            {
-                if (t != null)
-                {
-                    t.PrintTicket();
-                }
-            }
-        }
-
         //c.OpenCinema() and CloseCinema() — start/stop the projector.
 
         public void OpenCinema()
@@ -98,10 +78,26 @@ namespace Assignment_5.Movie_Ticket_Booking_System
         public static void ProcessTicket(Ticket t)
         {
             Console.WriteLine("\n========== Process Single Ticket ==========");
-            t.PrintTicket();
+            t.Print();
         }
 
         #region Assignment 05
+
+        public void PrintAllTickets()
+        {
+            Console.WriteLine("--- All Tickets ---");
+
+            foreach (IPrintable t in tickets)
+            {
+                if (t != null)
+                {
+                    t.Print();
+                }
+            }
+
+            Console.WriteLine();
+        }
+
         #endregion
 
     }

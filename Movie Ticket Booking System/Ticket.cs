@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// remove unused using statement
+using System;
 
 namespace Assignment_5.Movie_Ticket_Booking_System
 {
-    internal class Ticket
+    // Multiple Interfaces
+    internal class Ticket : IPrintable , IBookable , ICloneable
     {
         private string movieName;
         public string MovieName
@@ -16,6 +14,8 @@ namespace Assignment_5.Movie_Ticket_Booking_System
             {
                 if (!string.IsNullOrWhiteSpace(value))
                     movieName = value;
+                else
+                    throw new ArgumentException("Movie name cannot be empty or whitespace");
             }
         }
 
@@ -27,10 +27,10 @@ namespace Assignment_5.Movie_Ticket_Booking_System
             {
                 if (value > 0)
                     price = value;
+                else
+                    throw new ArgumentException("Price must be greater than 0");
             }
         }
-
-        public SeatLocation Seat { get; set; }
 
         // Ticket ID
         public int TicketId { get; }
@@ -39,19 +39,6 @@ namespace Assignment_5.Movie_Ticket_Booking_System
         private static int ticketCounter = 0;
 
         // Constructor
-        //public Ticket(string movieName,  SeatLocation seat, decimal price)
-        //{
-        //    ticketCounter++;
-        //    TicketId = ticketCounter;
-
-        //    MovieName = movieName;
-        //    
-        //    Seat = seat;
-        //    Price = price;
-        //}
-
-        //b.A constructor that takes movieName and price.
-
         public Ticket(string movieName, decimal price)
         {
             MovieName = movieName;
@@ -93,18 +80,6 @@ namespace Assignment_5.Movie_Ticket_Booking_System
             return $"Ticket #{TicketId} | {MovieName} | Price: {Price} EGP | After Tax: {PriceAfterTax:F2} EGP";
         }
 
-
-        //1.Refactor the base Ticket class:
-
-        //a.Add a PrintTicket() method that prints: TicketId, MovieName, Price, PriceAfterTax.
-        //Child classes should be able to provide their own version of this method.
-
-        // Virtual method for polymorphism
-        public virtual void PrintTicket()
-        {
-            Console.WriteLine($"Ticket #{TicketId} | {MovieName} | Price: {Price} EGP | After Tax: {PriceAfterTax:F2} EGP");
-        }
-
         //b.Add two versions of a SetPrice method — one that takes a decimal (sets price directly)
         //and one that takes a decimal base price and a decimal multiplier(sets price = base × multiplier).
 
@@ -120,6 +95,41 @@ namespace Assignment_5.Movie_Ticket_Booking_System
         }
 
         #region Assignment 05
+
+        public bool IsBooked { get; private set; }
+
+        public bool Book()
+        {
+            if (IsBooked)
+                return false;
+
+            IsBooked = true;
+            return true;
+        }
+
+        public bool Cancel()
+        {
+            if (!IsBooked)
+                return false;
+
+            IsBooked = false;
+            return true;
+        }
+
+        public virtual void Print()
+        {
+            string status = IsBooked ? "Booked" : "Available";
+
+            Console.WriteLine(
+                $"Ticket #{TicketId} | {MovieName} | Price: {Price} EGP | After Tax: {PriceAfterTax:F2} EGP | Status: {status}"
+            );
+        }
+
+        public virtual object Clone() 
+        {
+            return new Ticket( movieName , price );
+        }
+
         #endregion
     }
 }

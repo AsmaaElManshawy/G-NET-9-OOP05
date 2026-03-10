@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// remove unused using statement
+using System;
 
 namespace Assignment_5.Movie_Ticket_Booking_System
 {
@@ -26,5 +23,21 @@ namespace Assignment_5.Movie_Ticket_Booking_System
             bookingCounter++;
             return $"BK-{bookingCounter}";
         }
+
+        #region Assignment 05
+        // Interface Polymorphism
+        public static void PrintAll(IPrintable[] items)
+        {
+            Console.WriteLine("--- BookingHelper.PrintAll ---");
+
+            foreach (IPrintable item in items)
+            {
+                item.Print();
+            }
+
+            Console.WriteLine();
+        }
+
+        #endregion
     }
 }
